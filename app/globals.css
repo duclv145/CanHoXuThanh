@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f7f4ee;
+    --foreground: #161410;
+  }
+
+  * {
+    @apply border-ivory-300;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #ffe9c2;
+    color: #161410;
+  }
+
+  /* Accessible focus ring for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid #ffaa28;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 sm:px-10 lg:px-16 xl:px-24;
+  }
+
+  /* Letter-spaced uppercase eyebrow label used across sections */
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-eyebrow text-gold-600;
+  }
+
+  /* Thin gold rule */
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-ivory-300 to-transparent;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
+
+/* Hide number-input spinners for the price range fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
