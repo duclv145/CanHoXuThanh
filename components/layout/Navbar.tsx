@@ -37,9 +37,13 @@ export function Navbar() {
           : "border-b border-transparent bg-transparent",
       )}
     >
-      <nav className="container-x flex h-[72px] items-center justify-between">
-        <Link href={localePath(locale, "/")} aria-label={dict.nav.home}>
-          <Logo />
+      <nav className="container-x flex h-[72px] items-center justify-between gap-3">
+        <Link
+          href={localePath(locale, "/")}
+          aria-label={dict.nav.home}
+          className="shrink-0"
+        >
+          <Logo className="h-9 sm:h-12" />
         </Link>
 
         <div className="hidden items-center gap-9 lg:flex">
