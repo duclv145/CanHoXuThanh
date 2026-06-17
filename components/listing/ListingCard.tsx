@@ -154,29 +154,21 @@ export function ListingCard({
         </div>
 
         <div
-          className="mt-auto flex items-end justify-between border-t border-ivory-200 pt-4"
-          style={theme ? { borderColor: theme.border } : undefined}
+          className={
+            theme
+              ? "-mx-5 -mb-5 mt-auto bg-ivory-50 px-5 py-4"
+              : "mt-auto border-t border-ivory-200 pt-4"
+          }
         >
-          <div>
-            <p
-              className="text-xl font-bold text-ink"
-              style={theme ? { color: theme.text } : undefined}
-            >
-              {formatVnd(price)}
-            </p>
-            <p
-              className="text-[11px] uppercase tracking-wide text-ink-400"
-              style={theme ? { color: theme.textMuted } : undefined}
-            >
+          <p className="text-xl font-bold text-ink">{formatVnd(price)}</p>
+          <div className="-mt-1 flex items-baseline justify-between">
+            <p className="text-[11px] uppercase tracking-wide text-ink-400">
               {dict.card.perMonth}
             </p>
+            <span className="text-[13px] font-medium text-gold-600 link-underline">
+              {dict.card.detail}
+            </span>
           </div>
-          <span
-            className="text-[13px] font-medium text-gold-600 link-underline"
-            style={theme ? { color: theme.textMuted } : undefined}
-          >
-            {dict.card.detail}
-          </span>
         </div>
       </div>
     </Link>

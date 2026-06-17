@@ -59,7 +59,6 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <LanguageSwitcher />
           <Button
             as="link"
             href={localePath(locale, "/dat-lich-xem")}
@@ -68,6 +67,7 @@ export function Navbar() {
           >
             {dict.nav.book}
           </Button>
+          <LanguageSwitcher />
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
