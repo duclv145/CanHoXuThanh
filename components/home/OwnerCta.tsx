@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { TrendingUp, ShieldCheck, Clock, LineChart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { localePath } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const PERKS = [
-  { icon: TrendingUp, title: "Tối ưu doanh thu", desc: "Định giá thông minh, lấp đầy nhanh." },
-  { icon: ShieldCheck, title: "Khách thuê chọn lọc", desc: "Thẩm định kỹ, an tâm tài sản." },
-  { icon: Clock, title: "Tiết kiệm thời gian", desc: "Chúng tôi lo mọi khâu vận hành." },
-  { icon: LineChart, title: "Báo cáo minh bạch", desc: "Theo dõi doanh thu mọi lúc." },
-];
+const ICONS = [TrendingUp, ShieldCheck, Clock, LineChart];
 
-export function OwnerCta() {
+export function OwnerCta({ dict, locale }: { dict: Dictionary; locale: Locale }) {
+  const t = dict.owner;
+  const PERKS = t.points.map((p, i) => ({ ...p, icon: ICONS[i] }));
   return (
     <section id="chu-nha" className="py-20 lg:py-28">
       <div className="container-x">
@@ -17,8 +17,8 @@ export function OwnerCta() {
           {/* ảnh nền mờ bên phải */}
           <div className="absolute inset-y-0 right-0 hidden w-1/2 lg:block">
             <Image
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1100&q=80"
-              alt="Căn hộ cho thuê quản lý bởi StarLiving"
+              src="/K5-Bancong.jpg"
+              alt="Căn hộ cho thuê quản lý bởi CanHoXuThanh"
               fill
               sizes="50vw"
               className="object-cover"
@@ -26,19 +26,20 @@ export function OwnerCta() {
             <div className="absolute inset-0 bg-gradient-to-r from-forest via-forest/80 to-transparent" />
           </div>
 
-          <div className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-2 lg:p-16">
-            <div className="max-w-lg">
+          <div className="relative grid gap-10 p-8 sm:p-12 lg:grid-cols-[1.2fr_0.8fr] lg:p-16">
+            <div className="max-w-2xl">
               <div className="mb-5">
                 <span className="text-[11px] font-medium uppercase tracking-eyebrow text-gold-300">
-                  Dành cho chủ nhà
+                  {t.eyebrow}
                 </span>
               </div>
-              <h2 className="font-serif text-3xl font-bold leading-[1.1] sm:text-4xl">
-                Giao căn hộ — nhận doanh thu, bỏ qua mọi phiền hà
+              <h2 className="font-serif text-[26px] font-bold leading-[1.15] sm:text-[32px]">
+                {t.title_a}
+                <br />
+                {t.title_b}
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-ivory-200/80">
-                Đăng ký để StarLiving quản lý trọn gói việc cho thuê căn hộ của
-                bạn tại Vinhomes Star City. Minh bạch, chuyên nghiệp, hiệu quả.
+                {t.desc}
               </p>
 
               <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
@@ -59,12 +60,12 @@ export function OwnerCta() {
 
               <Button
                 as="link"
-                href="/chu-nha/dang-ky"
-                variant="gold"
+                href={localePath(locale, "/chu-nha/dang-ky")}
+                variant="ivory"
                 size="lg"
                 className="mt-10"
               >
-                Đăng ký ngay
+                {t.register}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

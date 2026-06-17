@@ -2,12 +2,20 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { SearchCard } from "@/components/home/SearchCard";
+import { localePath } from "@/lib/i18n/config";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 export function Hero({
   stats,
+  dict,
+  locale,
 }: {
   stats: { available: number; avgRating: number; responseTime: string };
+  dict: Dictionary;
+  locale: Locale;
 }) {
+  const t = dict.hero;
   return (
     <section className="relative flex min-h-screen w-full overflow-hidden pt-[72px]">
       {/* nền gradient ấm rất nhẹ */}
@@ -17,33 +25,27 @@ export function Hero({
       />
 
       {/* Layout full-width: cột trái text, cột phải ảnh edge-to-edge */}
-      <div className="grid w-full items-stretch xl:grid-cols-[1.08fr_0.92fr]">
+      <div className="grid w-full items-stretch lg:grid-cols-[1.08fr_0.92fr]">
 
-        {/* Cột trái — padding nội dung */}
+        {/* Cột trái - padding nội dung */}
         <div className="flex items-center px-6 py-20 sm:px-10 lg:px-16 xl:px-24">
           <div className="max-w-xl animate-fade-up">
-            <div className="mb-6">
-              <span className="eyebrow">Vinhomes Star City · Thanh Hoá</span>
-            </div>
-
-            <h1 className="font-serif text-[38px] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[52px] xl:text-[58px]">
-              Không gian sống
-              <br />
-              <span className="font-light text-gold-600">xứng tầm</span> của bạn
+            <h1 className="font-serif text-[36px] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-[44px] lg:text-[50px] xl:text-[58px]">
+              {t.title_a}
+              <span className="font-light text-gold-600">{t.title_accent}</span>
+              {t.title_b}
             </h1>
 
             <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-500">
-              Tuyển chọn những căn hộ cao cấp nhất tại Vinhomes Star City. Khám phá
-              bằng AI Video Tour, pháp lý minh bạch, thủ tục nhẹ nhàng — trải nghiệm
-              thuê nhà đẳng cấp quốc tế.
+              {t.desc}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button as="link" href="/can-ho" variant="primary" size="lg">
-                Khám phá căn hộ
+              <Button as="link" href={localePath(locale, "/can-ho")} variant="primary" size="lg">
+                {t.explore}
               </Button>
-              <Button as="link" href="/#dich-vu" variant="outline" size="lg">
-                Tìm hiểu dịch vụ
+              <Button as="link" href={localePath(locale, "/#dich-vu")} variant="outline" size="lg">
+                {t.services}
               </Button>
             </div>
 
@@ -73,31 +75,33 @@ export function Hero({
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className="h-3.5 w-3.5 fill-gold-400 text-gold-400"
+                      className="h-3.5 w-3.5 fill-amber-400 text-amber-400"
                     />
                   ))}
                 </div>
                 <p className="mt-0.5 text-[13px] text-ink-500">
-                  <span className="font-semibold text-ink">4.9/5</span> từ hơn 200
-                  khách thuê hài lòng
+                  <span className="font-semibold text-ink">4.9/5</span> {t.rating}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Cột phải — ảnh full chiều cao, sát cạnh phải */}
-        <div className="relative hidden xl:block">
-          <Image
-            src="/phonkhach.png"
-            alt="Phòng khách căn hộ cao cấp tại Vinhomes Star City"
-            fill
-            sizes="50vw"
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-ivory/60 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent" />
+        {/* Cột phải - ảnh full chiều cao, sát cạnh phải */}
+        <div className="relative hidden lg:block">
+          {/* Ảnh bo tròn (tách riêng để không cắt SearchCard tràn ra ngoài) */}
+          <div className="absolute inset-0 my-6 mr-6 overflow-hidden rounded-[28px] 2xl:my-8 2xl:mr-10">
+            <Image
+              src="/phonkhach.png"
+              alt="Phòng khách căn hộ cao cấp tại Vinhomes Star City"
+              fill
+              sizes="50vw"
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ivory/40 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent" />
+          </div>
 
           {/* Search card nổi trên ảnh */}
           <div className="absolute bottom-10 left-[-90px] z-10 w-[400px] 2xl:left-[-180px] 2xl:w-[420px]">
@@ -105,9 +109,27 @@ export function Hero({
           </div>
         </div>
 
-        {/* Mobile & tablet: search card dưới text */}
-        <div className="px-6 pb-16 sm:px-10 lg:px-16 xl:hidden">
-          <SearchCard stats={stats} />
+        {/* Mobile only: ảnh + search card */}
+        <div className="lg:hidden">
+          {/* Ảnh hero mobile - bo tròn, có lề hai bên */}
+          <div
+            className="relative mx-6 overflow-hidden rounded-3xl sm:mx-10"
+            style={{ aspectRatio: "4/3" }}
+          >
+            <Image
+              src="/phonkhach.png"
+              alt="Phòng khách căn hộ cao cấp tại Vinhomes Star City"
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
+          </div>
+          {/* Search card bên dưới ảnh */}
+          <div className="px-6 py-8 sm:px-10 lg:px-16">
+            <SearchCard stats={stats} />
+          </div>
         </div>
       </div>
     </section>

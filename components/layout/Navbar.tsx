@@ -5,18 +5,21 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/layout/Logo";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { useI18n, localePath } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-  { label: "Căn hộ", href: "/can-ho" },
-  { label: "Chủ nhà", href: "/chu-nha/dang-nhap" },
-  { label: "Dịch vụ", href: "/#dich-vu" },
-  { label: "Về chúng tôi", href: "/#ve-chung-toi" },
-];
-
 export function Navbar() {
+  const { locale, dict } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { label: dict.nav.apartments, href: "/can-ho" },
+    { label: dict.nav.owner, href: "/chu-nha/dang-nhap" },
+    { label: dict.nav.services, href: "/#dich-vu" },
+    { label: dict.nav.about, href: "/#ve-chung-toi" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -35,7 +38,7 @@ export function Navbar() {
       )}
     >
       <nav className="container-x flex h-[72px] items-center justify-between">
-        <Link href="/" aria-label="VinTH StarLiving — trang chủ">
+        <Link href={localePath(locale, "/")} aria-label={dict.nav.home}>
           <Logo />
         </Link>
 
@@ -43,7 +46,7 @@ export function Navbar() {
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
-              href={l.href}
+              href={localePath(locale, l.href)}
               className="link-underline text-sm font-medium text-ink-700 transition-colors hover:text-ink"
             >
               {l.label}
@@ -52,20 +55,29 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Button as="link" href="/dat-lich-xem" variant="primary" size="md">
-            Đặt lịch xem
+          <LanguageSwitcher />
+          <Button
+            as="link"
+            href={localePath(locale, "/dat-lich-xem")}
+            variant="primary"
+            size="md"
+          >
+            {dict.nav.book}
           </Button>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-11 w-11 items-center justify-center rounded-full text-ink lg:hidden"
-          aria-label={open ? "Đóng menu" : "Mở menu"}
-          aria-expanded={open}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-ink"
+            aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
+            aria-expanded={open}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
@@ -80,7 +92,7 @@ export function Navbar() {
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
-              href={l.href}
+              href={localePath(locale, l.href)}
               onClick={() => setOpen(false)}
               className="rounded-lg px-3 py-3 text-[15px] font-medium text-ink-700 hover:bg-ink/5"
             >
@@ -89,13 +101,13 @@ export function Navbar() {
           ))}
           <Button
             as="link"
-            href="/dat-lich-xem"
+            href={localePath(locale, "/dat-lich-xem")}
             variant="primary"
             size="md"
             className="mt-2"
             onClick={() => setOpen(false)}
           >
-            Đặt lịch xem
+            {dict.nav.book}
           </Button>
         </div>
       </div>

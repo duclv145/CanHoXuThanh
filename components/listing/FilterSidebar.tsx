@@ -3,7 +3,13 @@
 import { useCallback, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SlidersHorizontal, X } from "lucide-react";
-import { SUBZONES, LEASE_TERM_LABEL, type Subzone } from "@/lib/types";
+import {
+  SUBZONES,
+  BEDROOM_TYPES,
+  LEASE_TERM_LABEL,
+  type Subzone,
+} from "@/lib/types";
+import { useI18n, localePath } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
 
 interface LocalFilters {
@@ -44,6 +50,8 @@ function buildQs(params: URLSearchParams, f: LocalFilters): string {
 export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
   const router = useRouter();
   const params = useSearchParams();
+  const { locale, dict } = useI18n();
+  const tf = dict.filters;
   const [local, setLocal] = useState<LocalFilters>(() => readFromParams(params));
 
   const hasFilter =
@@ -64,9 +72,9 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
 
   const apply = useCallback(() => {
     const qs = buildQs(params, local);
-    router.push(`/can-ho${qs ? `?${qs}` : ""}`);
+    router.push(localePath(locale, `/can-ho${qs ? `?${qs}` : ""}`));
     onApply?.();
-  }, [router, params, local, onApply]);
+  }, [router, params, local, onApply, locale]);
 
   const clear = useCallback(() => {
     const cleared: LocalFilters = {
@@ -79,9 +87,9 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
     };
     setLocal(cleared);
     const sort = params.get("sap_xep");
-    router.push(sort ? `/can-ho?sap_xep=${sort}` : "/can-ho");
+    router.push(localePath(locale, sort ? `/can-ho?sap_xep=${sort}` : "/can-ho"));
     onApply?.();
-  }, [router, params, onApply]);
+  }, [router, params, onApply, locale]);
 
   return (
     <div className="space-y-5">
@@ -89,7 +97,7 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="h-4 w-4 text-gold-500" />
-          <span className="text-sm font-semibold text-ink">Bộ lọc</span>
+          <span className="text-sm font-semibold text-ink">{tf.title}</span>
         </div>
         {hasFilter && (
           <button
@@ -97,13 +105,13 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
             className="flex items-center gap-1 text-xs text-ink-500 transition-colors hover:text-gold-600"
           >
             <X className="h-3.5 w-3.5" />
-            Xoá tất cả
+            {tf.clear}
           </button>
         )}
       </div>
 
       {/* Phân khu */}
-      <FilterSection label="Phân khu">
+      <FilterSection label={tf.subzone}>
         <div className="space-y-2.5">
           {SUBZONES.map((z) => (
             <label key={z} className="flex cursor-pointer items-center gap-2.5">
@@ -120,13 +128,11 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       </FilterSection>
 
       {/* Số phòng ngủ */}
-      <FilterSection label="Số phòng ngủ">
+      <FilterSection label={tf.bedrooms}>
         <div className="flex flex-wrap gap-2">
           {[
-            { v: "", l: "Tất cả" },
-            { v: "1", l: "1 PN" },
-            { v: "2", l: "2 PN" },
-            { v: "3", l: "3+ PN" },
+            { v: "", l: tf.all },
+            ...BEDROOM_TYPES.map((b) => ({ v: b.value, l: dict.bedroomLabels[b.value] })),
           ].map(({ v, l }) => (
             <button
               key={v}
@@ -146,20 +152,20 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       </FilterSection>
 
       {/* Khoảng giá */}
-      <FilterSection label="Khoảng giá (triệu/tháng)">
+      <FilterSection label={tf.priceRange}>
         <div className="flex items-center gap-2">
           <input
             type="number"
-            placeholder="Từ"
+            placeholder={tf.from}
             value={local.minPrice}
             onChange={(e) => setLocal((f) => ({ ...f, minPrice: e.target.value }))}
             min={0}
             className="w-full rounded-lg border border-ivory-300 bg-white px-3 py-2 text-[13px] text-ink placeholder:text-ink-400 focus:border-gold-400 focus:outline-none"
           />
-          <span className="shrink-0 text-xs text-ink-400">—</span>
+          <span className="shrink-0 text-xs text-ink-400">-</span>
           <input
             type="number"
-            placeholder="Đến"
+            placeholder={tf.to}
             value={local.maxPrice}
             onChange={(e) => setLocal((f) => ({ ...f, maxPrice: e.target.value }))}
             min={0}
@@ -169,10 +175,10 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       </FilterSection>
 
       {/* Diện tích */}
-      <FilterSection label="Diện tích tối thiểu">
+      <FilterSection label={tf.minArea}>
         <div className="flex flex-wrap gap-2">
           {[
-            { v: "", l: "Tất cả" },
+            { v: "", l: tf.all },
             { v: "40", l: "40 m²" },
             { v: "60", l: "60 m²" },
             { v: "80", l: "80 m²" },
@@ -196,11 +202,14 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       </FilterSection>
 
       {/* Thời hạn thuê */}
-      <FilterSection label="Thời hạn thuê">
+      <FilterSection label={tf.term}>
         <div className="space-y-2.5">
           {[
-            { v: "", l: "Tất cả" },
-            ...Object.entries(LEASE_TERM_LABEL).map(([v, l]) => ({ v, l })),
+            { v: "", l: tf.all },
+            ...Object.keys(LEASE_TERM_LABEL).map((v) => ({
+              v,
+              l: dict.termLabels[v as keyof typeof dict.termLabels],
+            })),
           ].map(({ v, l }) => (
             <label key={v} className="flex cursor-pointer items-center gap-2.5">
               <input
@@ -222,7 +231,7 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
         onClick={apply}
         className="w-full rounded-xl bg-ink py-3 text-sm font-semibold text-ivory transition-colors hover:bg-ink-700 active:scale-[0.98]"
       >
-        Áp dụng bộ lọc
+        {tf.apply}
       </button>
     </div>
   );

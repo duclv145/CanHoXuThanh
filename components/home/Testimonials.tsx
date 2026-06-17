@@ -2,15 +2,22 @@ import Image from "next/image";
 import { Star, Quote } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { Testimonial } from "@/lib/mock-data";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export function Testimonials({ items }: { items: Testimonial[] }) {
+export function Testimonials({
+  items,
+  dict,
+}: {
+  items: Testimonial[];
+  dict: Dictionary;
+}) {
   return (
     <section id="ve-chung-toi" className="bg-ivory-100 py-20 lg:py-28">
       <div className="container-x">
         <SectionHeading
           align="center"
-          eyebrow="Khách hàng nói gì"
-          title="Niềm tin được vun đắp mỗi ngày"
+          eyebrow={dict.testimonials.eyebrow}
+          title={dict.testimonials.title}
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -22,7 +29,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
               <Quote className="h-7 w-7 text-gold-300" />
               <div className="mt-3 flex items-center gap-1">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-gold-400 text-gold-400" />
+                  <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
                 ))}
               </div>
               <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-ink-700">

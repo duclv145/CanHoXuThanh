@@ -1,8 +1,6 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-// Wordmark "CanHoXuThanh" — "CanHo" (amber) + "XuThanh" (ink/ivory).
-// CamelCase giữ ranh giới từ giữa "Hộ" và "Xứ" cho người đọc tiếng Việt.
-// tone="ivory" dùng trên nền tối.
 export function Logo({
   className,
   tone = "ink",
@@ -11,15 +9,17 @@ export function Logo({
   tone?: "ink" | "ivory";
 }) {
   return (
-    <span
-      aria-label="CanHoXuThanh"
+    <Image
+      src="/canhoxuthanh.png"
+      alt="CanHoXuThanh"
+      width={160}
+      height={32}
+      priority
       className={cn(
-        "select-none font-serif text-[22px] font-extrabold leading-none tracking-tight",
-        tone === "ivory" ? "text-ivory-50" : "text-ink",
+        "h-12 w-auto object-contain",
+        tone === "ivory" && "brightness-0 invert",
         className,
       )}
-    >
-      <span className="text-gold-500">CanHo</span>XuThanh
-    </span>
+    />
   );
 }

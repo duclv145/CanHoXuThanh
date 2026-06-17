@@ -19,26 +19,11 @@ const beVietnam = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL("https://vinth.vercel.app"),
   title: {
-    default: "VinTH · StarLiving — Cho thuê căn hộ cao cấp Vinhomes Star City",
-    template: "%s · VinTH StarLiving",
+    default: "CanHoXuThanh - Cho thuê căn hộ cao cấp Vinhomes Star City",
+    template: "%s · CanHoXuThanh",
   },
   description:
     "Nền tảng tìm kiếm & quản lý cho thuê căn hộ cao cấp tại Vinhomes Star City Thanh Hoá. AI Video Tour, pháp lý minh bạch, quản lý trọn gói.",
-  keywords: [
-    "Vinhomes Star City",
-    "cho thuê căn hộ Thanh Hoá",
-    "The Kyoto",
-    "The Victoria",
-    "The Sentosa",
-    "The K-Park Avenue",
-  ],
-  openGraph: {
-    title: "VinTH · StarLiving",
-    description:
-      "Cho thuê căn hộ cao cấp Vinhomes Star City Thanh Hoá — minh bạch, tận tâm, xứng tầm.",
-    type: "website",
-    locale: "vi_VN",
-  },
 };
 
 export default function RootLayout({
@@ -47,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={`${jakarta.variable} ${beVietnam.variable}`}>
+    <html className={`${jakarta.variable} ${beVietnam.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

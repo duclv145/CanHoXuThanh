@@ -13,11 +13,8 @@ export function applyFilters(
   if (f.subzones?.length) {
     out = out.filter((a) => f.subzones!.includes(a.subzone));
   }
-  if (f.bedrooms != null) {
-    // "3" nghĩa là 3+ phòng ngủ
-    out = out.filter((a) =>
-      f.bedrooms === 3 ? a.bedrooms >= 3 : a.bedrooms === f.bedrooms,
-    );
+  if (f.layout) {
+    out = out.filter((a) => a.layout === f.layout);
   }
   if (f.minPrice != null) out = out.filter((a) => a.price >= f.minPrice!);
   if (f.maxPrice != null) out = out.filter((a) => a.price <= f.maxPrice!);

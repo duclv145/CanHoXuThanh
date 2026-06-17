@@ -19,7 +19,7 @@ export function createClient() {
             cookieStore.set(name, value, options),
           );
         } catch {
-          // Gọi từ Server Component — bỏ qua, middleware sẽ làm mới session.
+          // Gọi từ Server Component - bỏ qua, middleware sẽ làm mới session.
         }
       },
     },

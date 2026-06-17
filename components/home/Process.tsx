@@ -1,37 +1,25 @@
 import { SearchCheck, PlayCircle, CalendarCheck, FileSignature } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-const STEPS = [
-  {
-    icon: SearchCheck,
-    title: "Tìm kiếm & lọc",
-    desc: "Lọc theo phân khu, phòng ngủ, mức giá và tiện ích để khoanh vùng những căn ưng ý nhất.",
-  },
-  {
-    icon: PlayCircle,
-    title: "Xem AI Video Tour",
-    desc: "Tham quan ảo từng căn hộ qua video AI sống động, tiết kiệm thời gian đi lại.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Đặt lịch xem thực tế",
-    desc: "Chọn căn ưng ý và đặt lịch xem trực tiếp. Đội ngũ đón tiếp tận tình tại dự án.",
-  },
-  {
-    icon: FileSignature,
-    title: "Ký hợp đồng & nhận nhà",
-    desc: "Hoàn tất hợp đồng minh bạch, bàn giao nhận nhà nhanh gọn và an tâm.",
-  },
-];
+const ICONS = [SearchCheck, PlayCircle, CalendarCheck, FileSignature];
 
-export function Process() {
+export function Process({ dict }: { dict: Dictionary }) {
+  const t = dict.process;
+  const STEPS = t.items.map((it, i) => ({ ...it, icon: ICONS[i] }));
   return (
     <section className="py-20 lg:py-28">
       <div className="container-x">
         <SectionHeading
           align="center"
-          eyebrow="Quy trình 4 bước"
-          title="Thuê nhà nhẹ nhàng như một kỳ nghỉ"
+          eyebrow={t.eyebrow}
+          title={
+            <>
+              {t.title_a}
+              <br />
+              {t.title_b}
+            </>
+          }
         />
 
         <div className="relative mt-14 grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4">

@@ -7,15 +7,25 @@ import { MobileFilterSheet } from "./MobileFilterSheet";
 import { EmptyState } from "./EmptyState";
 import { ListingCard } from "./ListingCard";
 import type { Apartment } from "@/lib/types";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
-export function ListingPageShell({ apartments }: { apartments: Apartment[] }) {
+export function ListingPageShell({
+  apartments,
+  dict,
+  locale,
+}: {
+  apartments: Apartment[];
+  dict: Dictionary;
+  locale: Locale;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
       <div className="container-x py-10 lg:py-14">
         <div className="lg:flex lg:items-start lg:gap-10">
-          {/* Filter sidebar — sticky, desktop only */}
+          {/* Filter sidebar - sticky, desktop only */}
           <aside className="hidden w-[260px] shrink-0 lg:block">
             <div className="sticky top-24 rounded-xl2 border border-ivory-200 bg-ivory-50 p-6 shadow-card">
               <Suspense fallback={null}>
@@ -40,11 +50,11 @@ export function ListingPageShell({ apartments }: { apartments: Apartment[] }) {
             {apartments.length > 0 ? (
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {apartments.map((a, i) => (
-                  <ListingCard key={a.id} apartment={a} priority={i < 4} />
+                  <ListingCard key={a.id} apartment={a} priority={i < 4} dict={dict} locale={locale} />
                 ))}
               </div>
             ) : (
-              <EmptyState />
+              <EmptyState dict={dict} locale={locale} />
             )}
           </div>
         </div>

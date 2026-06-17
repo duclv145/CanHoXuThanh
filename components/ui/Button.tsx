@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 
-type Variant = "primary" | "outline" | "ghost" | "gold";
+type Variant = "primary" | "outline" | "ghost" | "gold" | "ivory";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -11,7 +11,8 @@ const base =
 const variants: Record<Variant, string> = {
   primary:
     "bg-ink text-ivory-50 hover:bg-ink-800 hover:shadow-card",
-  gold: "bg-gold-500 text-ink hover:bg-gold-400 hover:shadow-card",
+  gold: "bg-gold-500 text-ivory-50 hover:bg-gold-600 hover:shadow-card",
+  ivory: "bg-ivory-50 text-ink hover:bg-ivory-200 hover:shadow-card",
   outline:
     "border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-ivory-50",
   ghost: "text-ink hover:bg-ink/5",

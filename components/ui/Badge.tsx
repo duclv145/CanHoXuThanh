@@ -14,7 +14,7 @@ type Tone =
 
 const tones: Record<Tone, string> = {
   ivory: "bg-ivory-50/90 text-ink backdrop-blur",
-  gold: "bg-gold-500 text-ink",
+  gold: "bg-gold-500 text-ivory-50",
   ink: "bg-ink text-ivory-50",
   outline: "border border-ink/15 text-ink-600",
   green: "bg-forest text-ivory-50",

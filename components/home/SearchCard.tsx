@@ -3,22 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Search, ChevronDown } from "lucide-react";
-import { SUBZONES, LEASE_TERM_LABEL, type LeaseTerm } from "@/lib/types";
-
-const PRICE_OPTIONS = [
-  { label: "Mọi mức giá", value: "" },
-  { label: "Dưới 15 triệu", value: "0-15000000" },
-  { label: "15 – 25 triệu", value: "15000000-25000000" },
-  { label: "25 – 35 triệu", value: "25000000-35000000" },
-  { label: "Trên 35 triệu", value: "35000000-" },
-];
-
-const BEDROOM_OPTIONS = [
-  { label: "Mọi loại", value: "" },
-  { label: "1 phòng ngủ", value: "1" },
-  { label: "2 phòng ngủ", value: "2" },
-  { label: "3+ phòng ngủ", value: "3" },
-];
+import {
+  SUBZONES,
+  BEDROOM_TYPES,
+  LEASE_TERM_LABEL,
+  type LeaseTerm,
+} from "@/lib/types";
+import { useI18n, localePath } from "@/lib/i18n/provider";
 
 function Field({
   label,
@@ -49,38 +40,51 @@ export function SearchCard({
   stats: { available: number; avgRating: number; responseTime: string };
 }) {
   const router = useRouter();
+  const { locale, dict } = useI18n();
+  const t = dict.search;
   const [subzone, setSubzone] = useState("");
   const [bedrooms, setBedrooms] = useState("");
   const [price, setPrice] = useState("");
   const [term, setTerm] = useState("");
 
+  const PRICE_OPTIONS = [
+    { label: t.allPrices, value: "" },
+    { label: t.priceOptions.under15, value: "-15" },
+    { label: t.priceOptions.p15_25, value: "15-25" },
+    { label: t.priceOptions.p25_35, value: "25-35" },
+    { label: t.priceOptions.over35, value: "35-" },
+  ];
+  const BEDROOM_OPTIONS = [
+    { label: t.allTypes, value: "" },
+    ...BEDROOM_TYPES.map((b) => ({ label: dict.bedroomLabels[b.value], value: b.value })),
+  ];
+
   function handleSearch() {
     const params = new URLSearchParams();
-    if (subzone) params.set("subzone", subzone);
-    if (bedrooms) params.set("bedrooms", bedrooms);
+    if (subzone) params.set("phan_khu", subzone);
+    if (bedrooms) params.set("phong_ngu", bedrooms);
     if (price) {
       const [min, max] = price.split("-");
-      if (min) params.set("minPrice", min);
-      if (max) params.set("maxPrice", max);
+      if (min) params.set("gia_min", min);
+      if (max) params.set("gia_max", max);
     }
-    if (term) params.set("leaseTerm", term);
-    router.push(`/can-ho${params.toString() ? `?${params}` : ""}`);
+    if (term) params.set("thoi_han", term);
+    const qs = params.toString();
+    router.push(localePath(locale, `/can-ho${qs ? `?${qs}` : ""}`));
   }
 
   return (
     <div className="rounded-xl2 border border-ivory-200 bg-ivory-50/95 p-6 shadow-float backdrop-blur-md sm:p-7">
-      <p className="mb-5 text-lg font-bold text-ink">
-        Tìm căn hộ phù hợp với bạn
-      </p>
+      <p className="mb-5 text-lg font-bold text-ink">{t.title}</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Phân khu">
+        <Field label={t.subzone}>
           <select
             className={selectClass}
             value={subzone}
             onChange={(e) => setSubzone(e.target.value)}
           >
-            <option value="">Tất cả phân khu</option>
+            <option value="">{t.allSubzones}</option>
             {SUBZONES.map((s) => (
               <option key={s} value={s}>
                 {s}
@@ -89,7 +93,7 @@ export function SearchCard({
           </select>
         </Field>
 
-        <Field label="Số phòng ngủ">
+        <Field label={t.bedrooms}>
           <select
             className={selectClass}
             value={bedrooms}
@@ -103,7 +107,7 @@ export function SearchCard({
           </select>
         </Field>
 
-        <Field label="Mức giá">
+        <Field label={t.price}>
           <select
             className={selectClass}
             value={price}
@@ -117,16 +121,16 @@ export function SearchCard({
           </select>
         </Field>
 
-        <Field label="Thời hạn thuê">
+        <Field label={t.term}>
           <select
             className={selectClass}
             value={term}
             onChange={(e) => setTerm(e.target.value)}
           >
-            <option value="">Linh hoạt</option>
-            {(Object.keys(LEASE_TERM_LABEL) as LeaseTerm[]).map((t) => (
-              <option key={t} value={t}>
-                {LEASE_TERM_LABEL[t]}
+            <option value="">{t.flexible}</option>
+            {(Object.keys(LEASE_TERM_LABEL) as LeaseTerm[]).map((lt) => (
+              <option key={lt} value={lt}>
+                {dict.termLabels[lt]}
               </option>
             ))}
           </select>
@@ -139,14 +143,17 @@ export function SearchCard({
         className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-sm font-medium text-ivory-50 transition-colors hover:bg-ink-800"
       >
         <Search className="h-4 w-4" />
-        Tìm kiếm căn hộ
+        {t.submit}
       </button>
 
       {/* 3 chỉ số nhanh */}
       <div className="mt-6 grid grid-cols-3 gap-2 border-t border-ivory-200 pt-5 text-center">
-        <Stat value={`${stats.available}`} label="Căn đang trống" />
-        <Stat value={`${stats.avgRating}★`} label="Đánh giá TB" />
-        <Stat value={stats.responseTime} label="Phản hồi" />
+        <Stat value={`${stats.available}`} label={t.statAvailable} />
+        <Stat value={`${stats.avgRating}★`} label={t.statRating} />
+        <Stat
+          value={locale === "ko" ? stats.responseTime.replace("phút", "분") : stats.responseTime}
+          label={t.statResponse}
+        />
       </div>
     </div>
   );

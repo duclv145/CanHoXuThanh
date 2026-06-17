@@ -2,13 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
-
-const SORT_OPTIONS = [
-  { value: "moi_nhat", label: "Mới nhất" },
-  { value: "gia_tang", label: "Giá tăng dần" },
-  { value: "gia_giam", label: "Giá giảm dần" },
-  { value: "danh_gia", label: "Đánh giá cao" },
-];
+import { useI18n, localePath } from "@/lib/i18n/provider";
 
 export function SortBar({
   count,
@@ -19,21 +13,29 @@ export function SortBar({
 }) {
   const router = useRouter();
   const params = useSearchParams();
+  const { locale, dict } = useI18n();
   const current = params.get("sap_xep") ?? "moi_nhat";
+
+  const SORT_OPTIONS = [
+    { value: "moi_nhat", label: dict.listing.sort.newest },
+    { value: "gia_tang", label: dict.listing.sort.priceAsc },
+    { value: "gia_giam", label: dict.listing.sort.priceDesc },
+    { value: "danh_gia", label: dict.listing.sort.rating },
+  ];
 
   const setSort = (value: string) => {
     const next = new URLSearchParams(params.toString());
     if (value === "moi_nhat") next.delete("sap_xep");
     else next.set("sap_xep", value);
     const qs = next.toString();
-    router.push(`/can-ho${qs ? `?${qs}` : ""}`);
+    router.push(localePath(locale, `/can-ho${qs ? `?${qs}` : ""}`));
   };
 
   return (
     <div className="mb-6 flex items-center justify-between border-b border-ivory-200 pb-5">
       <p className="text-[14px] text-ink-500">
-        Hiển thị{" "}
-        <span className="font-semibold text-ink">{count}</span> căn hộ
+        {dict.listing.showing_a}{" "}
+        <span className="font-semibold text-ink">{count}</span> {dict.listing.showing_b}
       </p>
 
       <div className="flex items-center gap-2.5">
@@ -44,12 +46,12 @@ export function SortBar({
           className="flex items-center gap-1.5 rounded-lg border border-ivory-300 px-3 py-2 text-xs font-medium text-ink-600 transition-colors hover:border-gold-400 hover:text-ink lg:hidden"
         >
           <SlidersHorizontal className="h-3.5 w-3.5 text-gold-500" />
-          Bộ lọc
+          {dict.listing.filter}
         </button>
 
         {/* Sort */}
         <div className="flex items-center gap-2">
-          <span className="hidden text-xs text-ink-400 sm:inline">Sắp xếp:</span>
+          <span className="hidden text-xs text-ink-400 sm:inline">{dict.listing.sortLabel}</span>
           <select
             value={current}
             onChange={(e) => setSort(e.target.value)}

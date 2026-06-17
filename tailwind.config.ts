@@ -18,53 +18,49 @@ const config: Config = {
           300: "#E3DBCB",
         },
         ink: {
-          DEFAULT: "#161410",
+          DEFAULT: "#0C0C0C",
           800: "#211E18",
           700: "#2E2A22",
           600: "#4A453B",
           500: "#6B6557",
           400: "#928B7B",
         },
-        // Bright amber-gold accent (#FFAA28) — single brand accent.
-        // 600/700 giữ cùng hue (~38°) với 500, chỉ giảm luminance để dùng cho text mà vẫn đồng nhất visually.
+        // Accent đơn sắc — đen ấm #161410 đồng nhất với ink, xám trung gian
         gold: {
-          DEFAULT: "#FFAA28",
-          50: "#FFF6E6",
-          100: "#FFE9C2",
-          200: "#FFD891",
-          300: "#FFC766",
-          400: "#FFB840",
-          500: "#FFAA28",
-          600: "#F09518",
-          700: "#C97400",
+          DEFAULT: "#161410",
+          50: "#F5F4F2",
+          100: "#E8E6E2",
+          200: "#D2CEC7",
+          300: "#A8A299",
+          400: "#6B6557",
+          500: "#0C0C0C",
+          600: "#0C0C0C",
+          700: "#000000",
         },
-        // Deep heritage green for dark sections
+        // Section nền tối — đen trung tính (không còn xanh)
         forest: {
-          DEFAULT: "#15231E",
-          700: "#1C2F28",
-          600: "#274038",
+          DEFAULT: "#0C0C0C",
+          700: "#211E18",
+          600: "#2E2A22",
         },
-        // ── Supporting palette ──────────────────────────────────────
-        // Teal (#056C5C): "còn trống" / success / verified
+        // ── Supporting palette — grayscale ─────────────────────────
         teal: {
-          DEFAULT: "#056C5C",
-          50: "#E7F3F1",
-          100: "#C3E3DD",
-          500: "#0A8A76",
-          600: "#056C5C",
-          700: "#044C41",
+          DEFAULT: "#3A3A3A",
+          50: "#F2F2F2",
+          100: "#DEDEDE",
+          500: "#555555",
+          600: "#3A3A3A",
+          700: "#222222",
         },
-        // Rose (#FF98BB → #BA1650): bold accent, alerts, "giữ chỗ"
         rose: {
-          DEFAULT: "#BA1650",
-          100: "#FFE4EE",
-          200: "#FFC9DD",
-          300: "#FF98BB",
-          500: "#E1336F",
-          600: "#BA1650",
-          700: "#8E0F3D",
+          DEFAULT: "#5C5C5C",
+          100: "#F5F5F5",
+          200: "#E2E2E2",
+          300: "#C4C4C4",
+          500: "#7A7A7A",
+          600: "#5C5C5C",
+          700: "#3D3D3D",
         },
-        // Mist (#CCCCCC): neutral grey — muted states, dividers
         mist: {
           DEFAULT: "#CCCCCC",
           light: "#E4E4E4",

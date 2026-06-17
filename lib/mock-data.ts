@@ -3,7 +3,7 @@ import type { Apartment } from "./types";
 const img = (id: string, w = 1400) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
-// Dữ liệu mẫu dùng khi chưa cấu hình Supabase — đủ để xem toàn bộ giao diện.
+// Dữ liệu mẫu dùng khi chưa cấu hình Supabase - đủ để xem toàn bộ giao diện.
 export const MOCK_APARTMENTS: Apartment[] = [
   {
     id: "a1",
@@ -15,6 +15,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     address: "Toà K1, The Kyoto, Vinhomes Star City, TP. Thanh Hoá",
     area: 78,
     bedrooms: 2,
+    layout: "2pn",
     bathrooms: 2,
     floor: 22,
     orientation: "Đông Nam",
@@ -47,14 +48,15 @@ export const MOCK_APARTMENTS: Apartment[] = [
   },
   {
     id: "a2",
-    slug: "the-victoria-v3-1505-3pn",
+    slug: "the-sentosa-s5-1505-3pn",
     owner_id: "o1",
-    name: "Victoria Garden Suite",
-    code: "V3-1505",
-    subzone: "The Victoria",
-    address: "Toà V3, The Victoria, Vinhomes Star City, TP. Thanh Hoá",
+    name: "Sentosa Garden Suite",
+    code: "S5-1505",
+    subzone: "The Sentosa",
+    address: "Toà S5, The Sentosa, Vinhomes Star City, TP. Thanh Hoá",
     area: 102,
     bedrooms: 3,
+    layout: "3pn",
     bathrooms: 2,
     floor: 15,
     orientation: "Tây Nam",
@@ -68,7 +70,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     created_at: "2026-05-28T08:00:00Z",
     cover_url: img("photo-1560448204-e02f11c3d0e2"),
     media: [
-      { id: "m5", apartment_id: "a2", url: img("photo-1560448204-e02f11c3d0e2"), type: "anh", sort_order: 1, alt: "Phòng khách Victoria" },
+      { id: "m5", apartment_id: "a2", url: img("photo-1560448204-e02f11c3d0e2"), type: "anh", sort_order: 1, alt: "Phòng khách Sentosa" },
       { id: "m6", apartment_id: "a2", url: img("photo-1522708323590-d24dbb6b0267"), type: "anh", sort_order: 2, alt: "Không gian sinh hoạt chung" },
       { id: "m7", apartment_id: "a2", url: img("photo-1505693416388-ac5ce068fe85"), type: "anh", sort_order: 3, alt: "Phòng ngủ" },
     ],
@@ -91,6 +93,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     address: "Toà S2, The Sentosa, Vinhomes Star City, TP. Thanh Hoá",
     area: 45,
     bedrooms: 1,
+    layout: "studio",
     bathrooms: 1,
     floor: 8,
     orientation: "Đông",
@@ -125,6 +128,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     address: "Toà KP1, The K-Park Avenue, Vinhomes Star City, TP. Thanh Hoá",
     area: 115,
     bedrooms: 3,
+    layout: "3pn",
     bathrooms: 3,
     floor: 18,
     orientation: "Nam",
@@ -161,6 +165,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     address: "Toà K2, The Kyoto, Vinhomes Star City, TP. Thanh Hoá",
     area: 72,
     bedrooms: 2,
+    layout: "2pn+1",
     bathrooms: 2,
     floor: 11,
     orientation: "Đông Bắc",
@@ -187,14 +192,15 @@ export const MOCK_APARTMENTS: Apartment[] = [
   },
   {
     id: "a6",
-    slug: "the-victoria-v1-2010-2pn-cao-cap",
+    slug: "the-k-park-avenue-kp3-2010-1pn1",
     owner_id: "o2",
-    name: "Victoria Sky Residence",
-    code: "V1-2010",
-    subzone: "The Victoria",
-    address: "Toà V1, The Victoria, Vinhomes Star City, TP. Thanh Hoá",
+    name: "K-Park Avenue Sky Residence",
+    code: "KP3-2010",
+    subzone: "The K-Park Avenue",
+    address: "Toà KP3, The K-Park Avenue, Vinhomes Star City, TP. Thanh Hoá",
     area: 85,
     bedrooms: 2,
+    layout: "1pn+1",
     bathrooms: 2,
     floor: 20,
     orientation: "Tây",
@@ -208,7 +214,7 @@ export const MOCK_APARTMENTS: Apartment[] = [
     created_at: "2026-06-10T08:00:00Z",
     cover_url: img("photo-1600121848594-d8644e57abab"),
     media: [
-      { id: "m15", apartment_id: "a6", url: img("photo-1600121848594-d8644e57abab"), type: "anh", sort_order: 1, alt: "Victoria Sky" },
+      { id: "m15", apartment_id: "a6", url: img("photo-1600121848594-d8644e57abab"), type: "anh", sort_order: 1, alt: "K-Park Avenue Sky" },
       { id: "m16", apartment_id: "a6", url: img("photo-1493809842364-78817add7ffb"), type: "anh", sort_order: 2, alt: "Phòng khách" },
     ],
     amenities: [
@@ -247,7 +253,7 @@ export const MOCK_TESTIMONIALS: Testimonial[] = [
     avatar: img("photo-1507003211169-0a1dd7228f2d", 200),
     rating: 5,
     quote:
-      "Tôi giao toàn bộ việc cho thuê cho VinTH. Tỷ lệ lấp đầy gần như tuyệt đối, báo cáo doanh thu rõ ràng từng tháng. Rất yên tâm.",
+      "Tôi giao toàn bộ việc cho thuê cho CanHoXuThanh. Tỷ lệ lấp đầy gần như tuyệt đối, báo cáo doanh thu rõ ràng từng tháng. Rất yên tâm.",
   },
   {
     id: "t3",
