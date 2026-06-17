@@ -23,10 +23,10 @@ export function Footer() {
     {
       title: t.colServices,
       links: [
-        { label: t.svcAiTour, href: "/#dich-vu" },
-        { label: t.svcManage, href: "/#dich-vu" },
-        { label: t.svcStaging, href: "/#dich-vu" },
-        { label: t.svcLegal, href: "/#dich-vu" },
+        { label: t.svcAiTour, href: "/dich-vu" },
+        { label: t.svcManage, href: "/dich-vu" },
+        { label: t.svcStaging, href: "/dich-vu" },
+        { label: t.svcLegal, href: "/dich-vu" },
       ],
     },
     {

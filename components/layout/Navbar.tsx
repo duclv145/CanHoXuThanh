@@ -17,7 +17,7 @@ export function Navbar() {
   const NAV_LINKS = [
     { label: dict.nav.apartments, href: "/can-ho" },
     { label: dict.nav.owner, href: "/chu-nha/dang-nhap" },
-    { label: dict.nav.services, href: "/#dich-vu" },
+    { label: dict.nav.services, href: "/dich-vu" },
     { label: dict.nav.about, href: "/#ve-chung-toi" },
   ];
 

@@ -1,8 +1,17 @@
-import { ComingSoon } from "@/components/layout/ComingSoon";
+import { AuthShell } from "@/components/owner/AuthShell";
+import { AuthForm } from "@/components/owner/AuthForm";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
 
 export default function Page({ params }: { params: { locale: Locale } }) {
-  const dict = getDictionary(params.locale);
-  return <ComingSoon title={dict.footer.ownerRegister} />;
+  const t = getDictionary(params.locale).ownerArea;
+  return (
+    <AuthShell
+      locale={params.locale}
+      title={t.registerTitle}
+      subtitle={t.registerSubtitle}
+    >
+      <AuthForm mode="register" />
+    </AuthShell>
+  );
 }
