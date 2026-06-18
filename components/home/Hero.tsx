@@ -27,8 +27,26 @@ export function Hero({
       {/* Layout full-width: cột trái text, cột phải ảnh edge-to-edge */}
       <div className="grid w-full items-stretch lg:grid-cols-[1.08fr_0.92fr]">
 
+        {/* Mobile: ảnh hero lên trên đầu */}
+        <div className="order-1 px-6 pt-4 sm:px-10 lg:hidden">
+          <div
+            className="relative overflow-hidden rounded-3xl"
+            style={{ aspectRatio: "4/3" }}
+          >
+            <Image
+              src="/phonkhach.png"
+              alt="Phòng khách căn hộ cao cấp tại Vinhomes Star City"
+              fill
+              sizes="100vw"
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
+          </div>
+        </div>
+
         {/* Cột trái - padding nội dung */}
-        <div className="flex items-center px-6 py-20 sm:px-10 lg:px-16 xl:px-24">
+        <div className="order-2 flex items-center px-6 py-12 sm:px-10 lg:order-none lg:py-20 lg:px-16 xl:px-24">
           <div className="max-w-xl animate-fade-up">
             <h1 className="font-serif text-[36px] font-extrabold leading-[1.05] tracking-tight text-ink sm:text-[44px] lg:text-[50px] xl:text-[58px]">
               {t.title_a}
@@ -88,7 +106,7 @@ export function Hero({
         </div>
 
         {/* Cột phải - ảnh full chiều cao, sát cạnh phải */}
-        <div className="relative hidden lg:block">
+        <div className="relative hidden lg:order-none lg:block">
           {/* Ảnh bo tròn (tách riêng để không cắt SearchCard tràn ra ngoài) */}
           <div className="absolute inset-0 my-6 mr-6 overflow-hidden rounded-[28px] 2xl:my-8 2xl:mr-10">
             <Image
@@ -109,27 +127,9 @@ export function Hero({
           </div>
         </div>
 
-        {/* Mobile only: ảnh + search card */}
-        <div className="lg:hidden">
-          {/* Ảnh hero mobile - bo tròn, có lề hai bên */}
-          <div
-            className="relative mx-6 overflow-hidden rounded-3xl sm:mx-10"
-            style={{ aspectRatio: "4/3" }}
-          >
-            <Image
-              src="/phonkhach.png"
-              alt="Phòng khách căn hộ cao cấp tại Vinhomes Star City"
-              fill
-              sizes="100vw"
-              priority
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-transparent" />
-          </div>
-          {/* Search card bên dưới ảnh */}
-          <div className="px-6 py-8 sm:px-10 lg:px-16">
-            <SearchCard stats={stats} />
-          </div>
+        {/* Mobile: search card dưới cùng */}
+        <div className="order-3 px-6 pb-10 sm:px-10 lg:hidden">
+          <SearchCard stats={stats} />
         </div>
       </div>
     </section>

@@ -101,6 +101,13 @@ const dictionaries = {
       eyebrow: "Dịch vụ",
       title: "Giải pháp cho thuê toàn diện",
       desc: "Từ marketing, vận hành đến pháp lý - CanHoXuThanh đồng hành cùng chủ nhà và khách thuê trên mọi bước của hành trình.",
+      listLabel: "Những gì chúng tôi làm",
+      stats: [
+        { value: "200+", label: "Khách thuê hài lòng" },
+        { value: "98%", label: "Tỷ lệ lấp đầy" },
+        { value: "4.9★", label: "Đánh giá trung bình" },
+        { value: "24/7", label: "Hỗ trợ tận tâm" },
+      ],
       featureLabel: "Bao gồm",
       features: [
         ["Quay dựng video AI chất lượng cao", "Tham quan 360° mọi lúc, mọi nơi", "Tăng tương tác, rút ngắn thời gian thuê"],
@@ -454,6 +461,13 @@ const dictionaries = {
       eyebrow: "서비스",
       title: "토탈 임대 솔루션",
       desc: "마케팅, 운영부터 법률까지 - CanHoXuThanh이 집주인과 임차인의 모든 여정을 함께합니다.",
+      listLabel: "우리가 하는 일",
+      stats: [
+        { value: "200+", label: "만족한 임차인" },
+        { value: "98%", label: "입주율" },
+        { value: "4.9★", label: "평균 평점" },
+        { value: "24/7", label: "정성 지원" },
+      ],
       featureLabel: "포함 내용",
       features: [
         ["고품질 AI 영상 제작", "언제 어디서나 360° 투어", "관심도 상승, 임대 기간 단축"],
