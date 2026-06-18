@@ -45,13 +45,15 @@ export function ListingCard({
   const isNew =
     (Date.now() - new Date(created_at).getTime()) / 86_400_000 <= 14;
 
-  // Theme riêng theo phân khu (vd The Kyoto = nền burgundy + chữ beige).
-  const theme = SUBZONE_THEME[subzone];
+  // Màu nhận diện phân khu — dùng cho viền card + các dấu ngăn cách.
+  // Card vẫn nền trắng, chữ tông ink như thường.
+  const accent = SUBZONE_THEME[subzone]?.bg;
 
   return (
     <Link
       href={localePath(locale, `/can-ho/${slug}`)}
-      className="group flex flex-col overflow-hidden rounded-xl2 bg-ivory-50 shadow-card transition-all duration-500 hover:-translate-y-1 hover:shadow-float focus-visible:-translate-y-1"
+      className="group flex flex-col overflow-hidden rounded-xl2 border-2 border-ivory-200 bg-ivory-50 shadow-card transition-all duration-500 hover:-translate-y-1 hover:shadow-float focus-visible:-translate-y-1"
+      style={accent ? { borderColor: accent } : undefined}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {cover_url ? (
@@ -69,7 +71,16 @@ export function ListingCard({
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="ivory">{subzone}</Badge>
+            {accent ? (
+              <span
+                className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-white shadow-sm"
+                style={{ backgroundColor: accent }}
+              >
+                {subzone}
+              </span>
+            ) : (
+              <Badge tone="ivory">{subzone}</Badge>
+            )}
             {isNew && <Badge tone="blush">{dict.card.new}</Badge>}
           </div>
           {has_ai_tour && (
@@ -86,79 +97,53 @@ export function ListingCard({
         </div>
       </div>
 
-      <div
-        className="flex flex-1 flex-col p-5"
-        style={
-          theme
-            ? { backgroundColor: theme.bg, color: theme.textMuted }
-            : undefined
-        }
-      >
+      <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3
-            className={
-              theme
-                ? "font-serif text-[17px] font-bold leading-snug"
-                : "font-serif text-[17px] font-bold leading-snug text-ink transition-colors group-hover:text-gold-600"
-            }
-            style={theme ? { color: theme.text } : undefined}
-          >
+          <h3 className="font-serif text-[17px] font-bold leading-snug text-ink transition-colors group-hover:text-gold-600">
             {name}
           </h3>
           {rating != null && (
-            <span
-              className="mt-1 flex shrink-0 items-center gap-1 text-[13px] font-medium text-ink-600"
-              style={theme ? { color: theme.textMuted } : undefined}
-            >
+            <span className="mt-1 flex shrink-0 items-center gap-1 text-[13px] font-medium text-ink-600">
               <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
               {rating.toFixed(1)}
             </span>
           )}
         </div>
 
-        <p
-          className="mt-2 flex items-center gap-1.5 text-[13px] text-ink-500"
-          style={theme ? { color: theme.textMuted } : undefined}
-        >
+        <p className="mt-2 flex items-center gap-1.5 text-[13px] text-ink-500">
           <MapPin
             className="h-3.5 w-3.5 shrink-0 text-gold-500"
-            style={theme ? { color: theme.textMuted } : undefined}
+            style={accent ? { color: accent } : undefined}
           />
           <span className="line-clamp-1">{address}</span>
         </p>
 
-        <div
-          className="my-4 flex items-center gap-4 text-[13px] text-ink-600"
-          style={theme ? { color: theme.textMuted } : undefined}
-        >
+        <div className="my-4 flex items-center gap-4 text-[13px] text-ink-600">
           <span className="flex items-center gap-1.5">
-            <Maximize className="h-4 w-4 opacity-70" strokeWidth={1.5} />
+            <Maximize className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
             {area} m²
           </span>
           <span
             className="h-3 w-px bg-ivory-300"
-            style={theme ? { backgroundColor: theme.border } : undefined}
+            style={accent ? { backgroundColor: accent } : undefined}
           />
           <span className="flex items-center gap-1.5">
-            <BedDouble className="h-4 w-4 opacity-70" strokeWidth={1.5} />
+            <BedDouble className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
             {locale === "ko" ? dict.bedroomLabels[layout] : BEDROOM_SHORT[layout]}
           </span>
           <span
             className="h-3 w-px bg-ivory-300"
-            style={theme ? { backgroundColor: theme.border } : undefined}
+            style={accent ? { backgroundColor: accent } : undefined}
           />
           <span className="flex items-center gap-1.5">
-            <Bath className="h-4 w-4 opacity-70" strokeWidth={1.5} />
+            <Bath className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
             {bathrooms} WC
           </span>
         </div>
 
         <div
-          className={
-            theme
-              ? "-mx-5 -mb-5 mt-auto bg-ivory-50 px-5 py-4"
-              : "mt-auto border-t border-ivory-200 pt-4"
-          }
+          className="mt-auto border-t border-ivory-200 pt-4"
+          style={accent ? { borderTopColor: accent } : undefined}
         >
           <p className="text-xl font-bold text-ink">{formatVnd(price)}</p>
           <div className="-mt-1 flex items-baseline justify-between">
