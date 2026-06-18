@@ -68,10 +68,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // Be Vietnam Pro cho text lớn (heading/display)
-        serif: ["var(--font-be-vietnam)", "system-ui", "sans-serif"],
-        // Plus Jakarta Sans cho body và UI nhỏ
-        sans: ["var(--font-jakarta)", "system-ui", "sans-serif"],
+        // Maven Pro cho toàn bộ (heading/display + body/UI)
+        serif: ["var(--font-maven)", "system-ui", "sans-serif"],
+        sans: ["var(--font-maven)", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         eyebrow: "0.28em",

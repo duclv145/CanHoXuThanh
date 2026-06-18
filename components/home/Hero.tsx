@@ -103,8 +103,8 @@ export function Hero({
             <div className="absolute inset-0 bg-gradient-to-t from-ink/20 via-transparent to-transparent" />
           </div>
 
-          {/* Search card nổi trên ảnh */}
-          <div className="absolute bottom-10 left-[-90px] z-10 w-[400px] 2xl:left-[-180px] 2xl:w-[420px]">
+          {/* Search card nổi trên ảnh - căn giữa chiều dọc cho cân đối với cột text */}
+          <div className="absolute left-[-72px] top-1/2 z-10 w-[400px] -translate-y-1/2 2xl:left-[-140px] 2xl:w-[420px]">
             <SearchCard stats={stats} />
           </div>
         </div>
