@@ -140,7 +140,7 @@ export function SearchCard({
       <button
         type="button"
         onClick={handleSearch}
-        className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink text-sm font-medium text-ivory-50 transition-colors hover:bg-ink-800"
+        className="mt-5 flex h-12 w-full items-center justify-center gap-2 rounded-full border border-ink/20 text-sm font-medium text-ink transition-all duration-300 hover:border-ink hover:bg-ink hover:text-ivory-50"
       >
         <Search className="h-4 w-4" />
         {t.submit}

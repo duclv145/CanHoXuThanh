@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown, Check, Globe } from "lucide-react";
 import { locales, LOCALE_LABEL, type Locale } from "@/lib/i18n/config";
 import { useI18n } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
@@ -51,10 +51,11 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex items-center gap-2 rounded-full border border-ink/15 py-1.5 pl-2 pr-2.5 text-[13px] font-semibold text-ink transition-colors hover:border-ink/40"
+        aria-label={LOCALE_LABEL[locale]}
+        className="flex items-center gap-1.5 rounded-full border border-ink/15 py-1.5 pl-2.5 pr-2 text-ink transition-colors hover:border-ink/40"
       >
+        <Globe className="h-4 w-4 text-ink-500" />
         <Flag locale={locale} />
-        <span>{LOCALE_LABEL[locale]}</span>
         <ChevronDown
           className={cn(
             "h-4 w-4 text-ink-400 transition-transform duration-300",
