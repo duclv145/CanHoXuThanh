@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { Logo } from "@/components/layout/Logo";
+import { LogoLockup } from "@/components/layout/LogoLockup";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { useI18n, localePath } from "@/lib/i18n/provider";
 import { cn } from "@/lib/utils";
@@ -37,16 +37,27 @@ export function Navbar() {
           : "border-b border-transparent bg-transparent",
       )}
     >
-      <nav className="container-x flex h-[72px] items-center justify-between gap-3">
+      <nav className="container-x relative flex h-[72px] items-center justify-between gap-3">
         <Link
           href={localePath(locale, "/")}
           aria-label={dict.nav.home}
           className="shrink-0"
         >
-          <Logo className="h-9 sm:h-12" />
+          {/* Cuộn chuột: cả lockup co lại, crop chỉ chừa icon nhà bên trái */}
+          <span
+            className={cn(
+              "logo-lockup block overflow-hidden transition-[max-width] duration-500 ease-out",
+              scrolled
+                ? "max-w-[34px] sm:max-w-[42px]"
+                : "max-w-[176px] sm:max-w-[210px]",
+            )}
+          >
+            <LogoLockup className="h-9 !w-auto max-w-none sm:h-11" />
+          </span>
         </Link>
 
-        <div className="hidden items-center gap-9 lg:flex">
+        {/* Menu cố định ở giữa, không xê dịch khi logo co lại */}
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 lg:flex">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}

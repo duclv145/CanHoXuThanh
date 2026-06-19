@@ -22,7 +22,7 @@ export function EmptyState({
       </p>
       <Link
         href={localePath(locale, "/can-ho")}
-        className="mt-6 inline-flex items-center rounded-xl bg-ink px-6 py-3 text-sm font-semibold text-ivory transition-colors hover:bg-ink-700"
+        className="mt-6 inline-flex items-center rounded-xl bg-gold-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-gold-600"
       >
         {dict.empty.cta}
       </Link>

@@ -4,13 +4,15 @@ import { cn } from "@/lib/utils";
 export function Logo({
   className,
   tone = "ink",
+  src = "/Logotext.png",
 }: {
   className?: string;
   tone?: "ink" | "ivory";
+  src?: string;
 }) {
   return (
     <Image
-      src="/canhoxuthanh.png"
+      src={src}
       alt="CanHoXuThanh"
       width={160}
       height={32}

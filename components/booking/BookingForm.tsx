@@ -266,7 +266,7 @@ export function BookingForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-6 flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-ink text-[15px] font-medium text-ivory-50 transition-colors hover:bg-ink-800 disabled:opacity-60"
+        className="mt-6 flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-gold-500 text-[15px] font-medium text-white transition-colors hover:bg-gold-600 disabled:opacity-60"
       >
         {pending ? (
           <>

@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: #f7f4ee;
-    --foreground: #0C0C0C;
+    --background: #fff5f8;
+    --foreground: #1a1115;
   }
 
   * {
@@ -19,18 +19,19 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background-color: #e8e8e8;
-    color: #0C0C0C;
+    background-color: #ffb6c1;
+    color: #1a1115;
   }
 
   /* Accessible focus ring for keyboard navigation */
   :focus-visible {
-    outline: 2px solid #0C0C0C;
+    outline: 2px solid #ff4081;
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -55,6 +56,83 @@
     @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full;
   }
 }
+
+/* ── Animated logo lockup (official vector) — easings from easings.net ─────── */
+/* https://github.com/ai/easings.net                                            */
+/* A moving line PAINTS the logo: each shape is its own clip region, and a wide  */
+/* pen-stroke is drawn along that shape (stroke-dashoffset 1→0). Because the      */
+/* stroke is clipped to the shape, the line appears and fills the shape as it     */
+/* travels. Staggered by draw order (--i): house mark first, wordmark L→R.        */
+
+.logo-lockup-svg .lk-mark {
+  color: #ff0052; /* brand mark */
+}
+.logo-lockup-svg .lk-word {
+  color: #1a1115; /* ink text */
+}
+.logo-lockup-svg.ivory .lk-mark,
+.logo-lockup-svg.ivory .lk-word {
+  color: #fff;
+}
+
+/* The pen stroke draws the shape (lk-draw); then the shape fills solid (lk-fill) */
+/* so the FINAL frame is a true filled vector — crisp, not a stroke approximation. */
+.logo-lockup-svg .lk-p {
+  fill: currentColor;
+  fill-opacity: 0; /* invisible until the pen has painted it */
+  stroke: currentColor;
+  stroke-width: 58; /* wordmark glyph thickness */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  /* draw the pen line, then settle into a solid fill */
+  animation:
+    lk-draw 1.05s cubic-bezier(0.25, 1, 0.5, 1) forwards, /* easeOutQuart */
+    lk-fill 0.5s ease-out forwards;
+  /* fill kicks in once that shape's pen stroke is ~80% done */
+  animation-delay:
+    calc(var(--i) * 0.13s),
+    calc(var(--i) * 0.13s + 0.8s);
+}
+.logo-lockup-svg .lk-mark .lk-p {
+  stroke-width: 72; /* house / arch / smile band */
+}
+.logo-lockup-svg .lk-dot {
+  stroke-width: 92; /* solid dot — needs to reach the centre */
+}
+
+/* Replay on hover — same crisp settle, a touch quicker */
+.logo-lockup:hover .lk-p {
+  animation:
+    lk-draw 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+    lk-fill 0.45s ease-out forwards;
+  animation-delay:
+    calc(var(--i) * 0.09s),
+    calc(var(--i) * 0.09s + 0.6s);
+}
+
+@keyframes lk-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lk-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-lockup-svg .lk-p,
+  .logo-lockup:hover .lk-p {
+    animation: none;
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+  }
+}
+
 
 /* Hide number-input spinners for the price range fields */
 input[type="number"]::-webkit-outer-spin-button,

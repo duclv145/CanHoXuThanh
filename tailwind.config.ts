@@ -9,33 +9,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Warm ivory canvas + ink — Christie's / Sotheby's restraint
+        // Canvas trắng - hồng rất nhạt (#FFF5F8 màu phụ), giữ tên "ivory"
         ivory: {
-          DEFAULT: "#F7F4EE",
-          50: "#FBF9F5",
-          100: "#F7F4EE",
-          200: "#EFEAE0",
-          300: "#E3DBCB",
+          DEFAULT: "#FFF5F8",
+          50: "#FFFFFF",
+          100: "#FFF5F8",
+          200: "#F6E4EB",
+          300: "#EBD3DC",
         },
         ink: {
-          DEFAULT: "#0C0C0C",
-          800: "#211E18",
-          700: "#2E2A22",
-          600: "#4A453B",
-          500: "#6B6557",
-          400: "#928B7B",
+          DEFAULT: "#1A1115",
+          800: "#241A1E",
+          700: "#3A2C31",
+          600: "#5A4951",
+          500: "#7C6A71",
+          400: "#A493A0",
         },
-        // Accent đơn sắc — đen ấm #161410 đồng nhất với ink, xám trung gian
+        // Accent chính = hồng #FF4081, đậm #D6336C, nhạt #FFB6C1, tint #FFF5F8
         gold: {
-          DEFAULT: "#161410",
-          50: "#F5F4F2",
-          100: "#E8E6E2",
-          200: "#D2CEC7",
-          300: "#A8A299",
-          400: "#6B6557",
-          500: "#0C0C0C",
-          600: "#0C0C0C",
-          700: "#000000",
+          DEFAULT: "#FF4081",
+          50: "#FFF5F8",
+          100: "#FFE3EC",
+          200: "#FFB6C1",
+          300: "#FF8FAB",
+          400: "#FF6593",
+          500: "#FF4081",
+          600: "#D6336C",
+          700: "#B02356",
         },
         // Section nền tối — đen trung tính (không còn xanh)
         forest: {

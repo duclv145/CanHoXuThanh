@@ -229,7 +229,7 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
       <button
         type="button"
         onClick={apply}
-        className="w-full rounded-xl bg-ink py-3 text-sm font-semibold text-ivory transition-colors hover:bg-ink-700 active:scale-[0.98]"
+        className="w-full rounded-xl bg-gold-500 py-3 text-sm font-semibold text-white transition-colors hover:bg-gold-600 active:scale-[0.98]"
       >
         {tf.apply}
       </button>

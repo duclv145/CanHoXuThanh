@@ -21,7 +21,7 @@ export function Hero({
       {/* nền gradient ấm rất nhẹ */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_80%_at_60%_-10%,#efe7d8_0%,transparent_55%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_80%_at_60%_-10%,#ffe3ec_0%,transparent_55%)]"
       />
 
       {/* Layout full-width: cột trái text, cột phải ảnh edge-to-edge */}
