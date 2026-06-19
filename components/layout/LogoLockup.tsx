@@ -1,18 +1,18 @@
 "use client";
 
-import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 /**
  * Official "canhoxuthanh.com" lockup from /public/canhoxuthanh.svg — exact mark,
  * spacing and letterforms (single viewBox).
  *
- * Animation: each shape is its own clip region, and a wide pen-stroke is drawn
- * along that shape (stroke-dashoffset). Because the stroke is clipped to the
- * shape, the logo is literally PAINTED by a moving line — the line appears and
- * draws the logo, shape by shape (house mark first, then the wordmark L→R).
- * Stroke draw uses easeOutQuart from easings.net — cubic-bezier(0.25, 1, 0.5, 1).
- * Replays on hover; respects prefers-reduced-motion.
+ * Intro animation (CSS lives in globals.css):
+ *   1. The house MARK builds piece-by-piece with an elastic bounce — body,
+ *      arch, eye (dot) then smile — staggered by --mi.
+ *   2. Each wordmark glyph springs up from the baseline with overshoot,
+ *      cascading left→right via the per-glyph --i index.
+ *   3. On hover the house gives a playful little hop.
+ * Respects prefers-reduced-motion (everything resolves to its final state).
  */
 const MARK: string[] = [
   "M454.26,331.62c0-14-0.06-28,0.02-41.99c0.07-12.38,3.07-16.38,15.02-18.21c8.09-1.24,13.86-4.9,16.27-12.68\n\t\tc2.42-7.83-0.67-14.21-6.25-19.83c-32.88-33.1-65.53-66.42-98.55-99.37c-22.65-22.59-45.76-44.72-68.69-67.03\n\t\tc-21.99-21.4-52.05-20.93-73.87,0.84c-31.85,31.77-63.88,63.36-95.76,95.1c-24.32,24.22-48.48,48.6-72.83,72.78\n\t\tc-5.16,5.12-8.01,10.82-5.59,17.93c2.61,7.66,8.11,11.49,16.45,12.27c11.26,1.05,15.01,5.64,15.05,17\n\t\tc0.12,28.99,0.22,57.99,0.15,86.98c-0.03,14.66-9.22,20.97-23.32,16.25c-4.55-1.52-7.02-5.05-7.72-9.61\n\t\tc-0.45-2.93-0.21-5.98-0.21-8.98c-0.01-21.33-0.15-42.66,0.09-63.99c0.06-5.31-1.63-8.31-6.41-10.98\n\t\tc-23.87-13.29-32.79-39.43-21.95-64.15c2.09-4.76,5.2-9.41,8.87-13.09c57.9-58.04,115.93-115.93,173.99-173.8\n\t\tc29.81-29.71,82.31-30.06,112.33-0.46c46.51,45.85,92.79,91.92,139.11,137.96c10.87,10.81,21.51,21.84,32.21,32.82\n\t\tc24.58,25.2,19.54,63.49-11.02,80.65c-5.37,3.02-6.62,6.47-6.58,11.9c0.17,22,0.03,43.99,0.13,65.99c0.02,4.79-0.13,9.45-3.96,12.9\n\t\tc-5.71,5.13-12.72,3.96-18.99,2.35c-5.65-1.44-7.93-6.68-7.93-12.58c0.01-15.66,0-31.33,0-46.99\n\t\tC454.3,331.62,454.28,331.62,454.26,331.62z",
@@ -49,28 +49,6 @@ export function LogoLockup({
   tone?: "brand" | "ivory";
   title?: string;
 }) {
-  const raw = useId();
-  const uid = raw.replace(/[^a-zA-Z0-9_-]/g, "");
-
-  const Shape = ({ d, i, group }: { d: string; i: number; group: "mark" | "word" }) => {
-    const cid = `${uid}-c${i}`;
-    return (
-      <>
-        <clipPath id={cid}>
-          <path d={d} />
-        </clipPath>
-        <g clipPath={`url(#${cid})`}>
-          <path
-            className={cn("lk-p", group === "mark" && i === 2 && "lk-dot")}
-            d={d}
-            pathLength={1}
-            style={{ "--i": i } as React.CSSProperties}
-          />
-        </g>
-      </>
-    );
-  };
-
   return (
     <svg
       viewBox="0 0 2570.95 589.66"
@@ -81,12 +59,22 @@ export function LogoLockup({
     >
       <g className="lk-mark">
         {MARK.map((d, i) => (
-          <Shape key={`m${i}`} d={d} i={i} group="mark" />
+          <path
+            key={`m${i}`}
+            className="lk-m"
+            d={d}
+            style={{ "--mi": i } as React.CSSProperties}
+          />
         ))}
       </g>
       <g className="lk-word">
         {WORD.map((d, i) => (
-          <Shape key={`w${i}`} d={d} i={i + MARK.length} group="word" />
+          <path
+            key={`w${i}`}
+            className="lk-w"
+            d={d}
+            style={{ "--i": i } as React.CSSProperties}
+          />
         ))}
       </g>
     </svg>

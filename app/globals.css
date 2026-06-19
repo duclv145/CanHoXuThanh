@@ -57,13 +57,15 @@
   }
 }
 
-/* ── Animated logo lockup (official vector) — easings from easings.net ─────── */
-/* https://github.com/ai/easings.net                                            */
-/* A moving line PAINTS the logo: each shape is its own clip region, and a wide  */
-/* pen-stroke is drawn along that shape (stroke-dashoffset 1→0). Because the      */
-/* stroke is clipped to the shape, the line appears and fills the shape as it     */
-/* travels. Staggered by draw order (--i): house mark first, wordmark L→R.        */
+/* ── Animated logo lockup (official vector) — playful, bouncy intro ─────────── */
+/* 1. MARK builds piece-by-piece with an elastic bounce (body→arch→eye→smile).   */
+/* 2. WORD glyphs spring up from the baseline with overshoot, cascading L→R.     */
+/* 3. Hover: the house gives a little hop.                                       */
 
+.logo-lockup-svg .lk-m,
+.logo-lockup-svg .lk-w {
+  fill: currentColor;
+}
 .logo-lockup-svg .lk-mark {
   color: #ff0052; /* brand mark */
 }
@@ -75,61 +77,85 @@
   color: #fff;
 }
 
-/* The pen stroke draws the shape (lk-draw); then the shape fills solid (lk-fill) */
-/* so the FINAL frame is a true filled vector — crisp, not a stroke approximation. */
-.logo-lockup-svg .lk-p {
-  fill: currentColor;
-  fill-opacity: 0; /* invisible until the pen has painted it */
-  stroke: currentColor;
-  stroke-width: 58; /* wordmark glyph thickness */
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  /* draw the pen line, then settle into a solid fill */
-  animation:
-    lk-draw 1.05s cubic-bezier(0.25, 1, 0.5, 1) forwards, /* easeOutQuart */
-    lk-fill 0.5s ease-out forwards;
-  /* fill kicks in once that shape's pen stroke is ~80% done */
-  animation-delay:
-    calc(var(--i) * 0.13s),
-    calc(var(--i) * 0.13s + 0.8s);
-}
-.logo-lockup-svg .lk-mark .lk-p {
-  stroke-width: 72; /* house / arch / smile band */
-}
-.logo-lockup-svg .lk-dot {
-  stroke-width: 92; /* solid dot — needs to reach the centre */
+/* 1 — house mark: each piece bounces in, one after another */
+.logo-lockup-svg .lk-m {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: lk-bounce-in 0.7s ease-out forwards;
+  animation-delay: calc(var(--mi) * 0.11s);
 }
 
-/* Replay on hover — same crisp settle, a touch quicker */
-.logo-lockup:hover .lk-p {
-  animation:
-    lk-draw 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards,
-    lk-fill 0.45s ease-out forwards;
-  animation-delay:
-    calc(var(--i) * 0.09s),
-    calc(var(--i) * 0.09s + 0.6s);
+/* 2 — wordmark glyphs: springy pop-up from the baseline, cascading L→R */
+.logo-lockup-svg .lk-w {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  opacity: 0;
+  animation: lk-spring-up 0.68s ease-out forwards;
+  animation-delay: calc(0.46s + var(--i) * 0.05s);
 }
 
-@keyframes lk-draw {
-  to {
-    stroke-dashoffset: 0;
+/* 3 — hover: the house hops with a tiny ripple between its pieces */
+.logo-lockup-svg:hover .lk-m {
+  animation: lk-hop 0.55s ease;
+  animation-delay: calc(var(--mi) * 0.05s);
+}
+
+@keyframes lk-bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-14deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.18) rotate(5deg);
+  }
+  75% {
+    transform: scale(0.93) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }
 
-@keyframes lk-fill {
-  to {
-    fill-opacity: 1;
+@keyframes lk-spring-up {
+  0% {
+    opacity: 0;
+    transform: translateY(72px) scale(0.6);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-11px) scale(1.1);
+  }
+  76% {
+    transform: translateY(4px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lk-hop {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-16px) scale(1.07);
+  }
+  70% {
+    transform: translateY(0) scale(0.96);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-lockup-svg .lk-p,
-  .logo-lockup:hover .lk-p {
+  .logo-lockup-svg .lk-m,
+  .logo-lockup-svg .lk-w {
+    opacity: 1;
+    transform: none;
     animation: none;
-    stroke-dashoffset: 0;
-    fill-opacity: 1;
   }
 }
 
