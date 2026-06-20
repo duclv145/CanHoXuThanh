@@ -43,15 +43,7 @@ export function Navbar() {
           aria-label={dict.nav.home}
           className="shrink-0"
         >
-          {/* Cuộn chuột: cả lockup co lại, crop chỉ chừa icon nhà bên trái */}
-          <span
-            className={cn(
-              "logo-lockup block overflow-hidden transition-[max-width] duration-500 ease-out",
-              scrolled
-                ? "max-w-[34px] sm:max-w-[42px]"
-                : "max-w-[176px] sm:max-w-[210px]",
-            )}
-          >
+          <span className="logo-lockup block">
             <LogoLockup className="h-9 !w-auto max-w-none sm:h-11" />
           </span>
         </Link>

@@ -91,8 +91,8 @@
   transform-box: fill-box;
   transform-origin: center bottom;
   opacity: 0;
-  animation: lk-spring-up 0.68s ease-out forwards;
-  animation-delay: calc(0.46s + var(--i) * 0.05s);
+  animation: lk-spring-up 0.42s ease-out forwards;
+  animation-delay: calc(0.28s + var(--i) * 0.03s);
 }
 
 /* 3 — hover: the house hops with a tiny ripple between its pieces */
