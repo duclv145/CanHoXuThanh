@@ -52,7 +52,7 @@ export function ListingCard({
   return (
     <Link
       href={localePath(locale, `/can-ho/${slug}`)}
-      className="group flex flex-col overflow-hidden rounded-xl2 bg-ivory-50 shadow-card transition-all duration-500 hover:-translate-y-1 hover:shadow-float focus-visible:-translate-y-1"
+      className="group flex flex-col overflow-hidden rounded-xl2 border border-ivory-200 bg-ivory-50 shadow-card transition-all duration-500 hover:-translate-y-1 hover:shadow-float focus-visible:-translate-y-1"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         {cover_url ? (
@@ -140,10 +140,7 @@ export function ListingCard({
           </span>
         </div>
 
-        <div
-          className="mt-auto border-t border-ivory-200 pt-4"
-          style={accent ? { borderTopColor: accent } : undefined}
-        >
+        <div className="mt-auto border-t border-ivory-200/60 pt-4">
           <p className="text-xl font-bold text-ink">{formatVnd(price)}</p>
           <div className="-mt-1 flex items-baseline justify-between">
             <p className="text-[11px] uppercase tracking-wide text-ink-400">

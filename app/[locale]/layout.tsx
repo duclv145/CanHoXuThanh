@@ -6,6 +6,7 @@ import { I18nProvider } from "@/lib/i18n/provider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HtmlLang } from "@/components/layout/HtmlLang";
+import { Preloader } from "@/components/layout/Preloader";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -45,6 +46,7 @@ export default function LocaleLayout({
   return (
     <I18nProvider locale={locale} dict={dict}>
       <HtmlLang locale={locale} />
+      <Preloader />
       <Navbar />
       {children}
       <Footer />

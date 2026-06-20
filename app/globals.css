@@ -57,11 +57,15 @@
   }
 }
 
-/* ── Animated logo lockup (official vector) — playful, bouncy intro ─────────── */
+/* ── Animated logo lockup (official vector) — bouncy house + self-drawing word ─ */
 /* 1. MARK builds piece-by-piece with an elastic bounce (body→arch→eye→smile).   */
-/* 2. WORD glyphs spring up from the baseline with overshoot, cascading L→R.     */
-/* 3. Hover: the house gives a little hop.                                       */
+/* 2. WORD glyphs self-draw L→R via --i, then fill — like a handwritten mark.    */
+/* 3. Hover: the house hops; the wordmark re-draws with a quick shimmer.         */
 
+/* Let bouncing/hopping pieces spill past the viewBox instead of being clipped. */
+.logo-lockup-svg {
+  overflow: visible;
+}
 .logo-lockup-svg .lk-m,
 .logo-lockup-svg .lk-w {
   fill: currentColor;
@@ -77,7 +81,7 @@
   color: #fff;
 }
 
-/* 1 — house mark: each piece bounces in, one after another */
+/* 1 — house mark: each piece bounces in, one after another (original effect) */
 .logo-lockup-svg .lk-m {
   transform-box: fill-box;
   transform-origin: center;
@@ -86,18 +90,26 @@
   animation-delay: calc(var(--mi) * 0.11s);
 }
 
-/* 2 — wordmark glyphs: springy pop-up from the baseline, cascading L→R */
+/* 2 — wordmark glyphs: self-draw cascading L→R, then fill.
+   pathLength=1 (set in markup) normalises each path so one dasharray works. */
 .logo-lockup-svg .lk-w {
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  opacity: 0;
-  animation: lk-spring-up 0.42s ease-out forwards;
-  animation-delay: calc(0.28s + var(--i) * 0.03s);
+  fill-opacity: 0;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: lk-draw 0.95s ease forwards;
+  animation-delay: calc(0.55s + var(--i) * 0.06s);
 }
 
-/* 3 — hover: the house hops with a tiny ripple between its pieces */
+/* 3 — hover: only the house hops; the wordmark stays put (no hover effect).
+   `forwards` holds the visible end-state so the house never reverts to the
+   hidden intro base (opacity:0). */
 .logo-lockup-svg:hover .lk-m {
-  animation: lk-hop 0.55s ease;
+  opacity: 1;
+  animation: lk-hop 0.55s ease forwards;
   animation-delay: calc(var(--mi) * 0.05s);
 }
 
@@ -119,24 +131,6 @@
   }
 }
 
-@keyframes lk-spring-up {
-  0% {
-    opacity: 0;
-    transform: translateY(72px) scale(0.6);
-  }
-  55% {
-    opacity: 1;
-    transform: translateY(-11px) scale(1.1);
-  }
-  76% {
-    transform: translateY(4px) scale(0.97);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
 @keyframes lk-hop {
   0%,
   100% {
@@ -150,9 +144,94 @@
   }
 }
 
+@keyframes lk-draw {
+  0% {
+    stroke-dashoffset: 1;
+    fill-opacity: 0;
+  }
+  55% {
+    stroke-dashoffset: 0;
+    fill-opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .logo-lockup-svg .lk-m,
   .logo-lockup-svg .lk-w {
+    opacity: 1;
+    fill-opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
+
+
+/* ── Page preloader: house mark on an ivory splash, fades out on load ──────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff5f7; /* ivory/blush backdrop, matches the hero */
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+.preloader.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.preloader-house {
+  width: clamp(72px, 14vw, 120px);
+  height: auto;
+  /* Let pieces that overshoot (scale 1.18) spill past the tight viewBox
+     instead of being clipped at the edges. */
+  overflow: visible;
+}
+/* Each house piece bounces in (same feel as the logo intro), then the whole
+   build cascade loops while the page loads — body→arch→eye→smile via --mi. */
+.preloader-house .hm-piece {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: preloader-build 2s ease-out infinite;
+  animation-delay: calc(var(--mi) * 0.13s);
+}
+
+@keyframes preloader-build {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-14deg);
+  }
+  16% {
+    opacity: 1;
+    transform: scale(1.18) rotate(5deg);
+  }
+  24% {
+    transform: scale(0.93) rotate(-2deg);
+  }
+  32% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  88% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-14deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-house .hm-piece {
     opacity: 1;
     transform: none;
     animation: none;
