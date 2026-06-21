@@ -87,10 +87,10 @@ export const APARTMENT_STATUS_LABEL: Record<ApartmentStatus, string> = {
 // Badge tone (xem components/ui/Badge) cho mỗi trạng thái.
 export const APARTMENT_STATUS_TONE: Record<
   ApartmentStatus,
-  "teal" | "mist" | "rose"
+  "gold" | "ink" | "rose"
 > = {
-  trong: "teal", // còn trống - xanh teal
-  dang_thue: "mist", // đã thuê - xám trung tính
+  trong: "gold", // còn trống - nền hồng chữ trắng
+  dang_thue: "ink", // đã thuê - nền đen chữ trắng
   dang_xu_ly: "rose", // đang giữ chỗ - hồng đậm
 };
 

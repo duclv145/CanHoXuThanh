@@ -160,7 +160,7 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
             value={local.minPrice}
             onChange={(e) => setLocal((f) => ({ ...f, minPrice: e.target.value }))}
             min={0}
-            className="w-full rounded-lg border border-ivory-300 bg-white px-3 py-2 text-[13px] text-ink placeholder:text-ink-400 focus:border-gold-400 focus:outline-none"
+            className="w-full rounded-lg border border-ivory-300 bg-ivory-50 px-3 py-2 text-[13px] text-ink placeholder:text-ink-400 focus:border-gold-400 focus:outline-none"
           />
           <span className="shrink-0 text-xs text-ink-400">-</span>
           <input
@@ -169,7 +169,7 @@ export function FilterSidebar({ onApply }: { onApply?: () => void } = {}) {
             value={local.maxPrice}
             onChange={(e) => setLocal((f) => ({ ...f, maxPrice: e.target.value }))}
             min={0}
-            className="w-full rounded-lg border border-ivory-300 bg-white px-3 py-2 text-[13px] text-ink placeholder:text-ink-400 focus:border-gold-400 focus:outline-none"
+            className="w-full rounded-lg border border-ivory-300 bg-ivory-50 px-3 py-2 text-[13px] text-ink placeholder:text-ink-400 focus:border-gold-400 focus:outline-none"
           />
         </div>
       </FilterSection>

@@ -20,7 +20,7 @@ export default async function HomePage({
 }) {
   const dict = getDictionary(params.locale);
   const [featured, stats] = await Promise.all([
-    getFeaturedApartments(3),
+    getFeaturedApartments(6),
     getSiteStats(),
   ]);
   const testimonials = getTestimonials();

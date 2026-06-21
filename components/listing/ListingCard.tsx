@@ -80,10 +80,10 @@ export function ListingCard({
             ) : (
               <Badge tone="ivory">{subzone}</Badge>
             )}
-            {isNew && <Badge tone="blush">{dict.card.new}</Badge>}
+            {isNew && <Badge tone="gold">{dict.card.new}</Badge>}
           </div>
           {has_ai_tour && (
-            <Badge tone="gold">
+            <Badge tone="mist">
               <Sparkles className="h-3 w-3" /> AI Tour
             </Badge>
           )}
