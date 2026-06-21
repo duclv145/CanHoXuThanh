@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { MessageCircle, Phone, MapPin } from "lucide-react";
 import { Logo } from "@/components/layout/Logo";
+import { SOCIAL_CONTACTS } from "@/lib/contacts";
 import { useI18n, localePath } from "@/lib/i18n/provider";
 
 export function Footer() {
@@ -94,18 +96,49 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-ink-700 pt-8 text-[13px] text-[#F5F3ED]/70 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} CanHoXuThanh.com {t.rights}</p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <Link href={localePath(locale, "/dieu-khoan")} className="hover:text-[#F5F3ED]">
-              {t.terms}
-            </Link>
-            <Link href={localePath(locale, "/bao-mat")} className="hover:text-[#F5F3ED]">
-              {t.privacy}
-            </Link>
-            <Link href={localePath(locale, "/phap-ly")} className="hover:text-[#F5F3ED]">
-              {t.legal}
-            </Link>
+        <div className="mt-14 border-t border-ink-700 pt-8">
+          {/* Kết nối — các kênh nhắn tin */}
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <span className="text-[12px] font-semibold uppercase tracking-eyebrow text-[#F5F3ED]/55">
+              {t.connect}
+            </span>
+            <div className="flex flex-wrap items-center gap-2.5">
+              {SOCIAL_CONTACTS.map((c) => (
+                <a
+                  key={c.name}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={c.name}
+                  title={c.name}
+                  className="transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  <Image
+                    src={c.logo}
+                    alt={c.name}
+                    width={36}
+                    height={36}
+                    className="h-9 w-9 object-contain"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Bản quyền + pháp lý */}
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 text-[13px] text-[#F5F3ED]/70 sm:flex-row sm:items-center">
+            <p>© {new Date().getFullYear()} CanHoXuThanh.com {t.rights}</p>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link href={localePath(locale, "/dieu-khoan")} className="hover:text-[#F5F3ED]">
+                {t.terms}
+              </Link>
+              <Link href={localePath(locale, "/bao-mat")} className="hover:text-[#F5F3ED]">
+                {t.privacy}
+              </Link>
+              <Link href={localePath(locale, "/phap-ly")} className="hover:text-[#F5F3ED]">
+                {t.legal}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

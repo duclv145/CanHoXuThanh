@@ -17,7 +17,7 @@ const tones: Record<Tone, string> = {
   gold: "bg-gold-500 text-ivory-50",
   ink: "bg-ink text-ivory-50",
   outline: "border border-ink/15 text-ink-600",
-  green: "bg-forest text-ivory-50",
+  green: "bg-ink text-ivory-50",
   teal: "bg-teal-600 text-ivory-50",
   rose: "bg-rose-600 text-ivory-50",
   blush: "bg-rose-300 text-rose-700",

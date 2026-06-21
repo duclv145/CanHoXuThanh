@@ -112,15 +112,15 @@ export default async function Page({
     <>
       <main className="bg-ivory pt-[72px]">
         {/* ── Header band (themed theo phân khu) ─────────────────────── */}
-        <header
-          className="border-b border-ivory-200"
-          style={
-            theme
-              ? { backgroundColor: theme.bg, borderColor: theme.border }
-              : undefined
-          }
-        >
-          <div className="container-x py-8 lg:py-10">
+        <header className="container-x pt-4 sm:pt-6">
+          <div
+            className="overflow-hidden rounded-xl2 border border-ivory-200 px-6 py-8 sm:px-10 lg:px-12 lg:py-10"
+            style={
+              theme
+                ? { backgroundColor: theme.bg, borderColor: theme.border }
+                : undefined
+            }
+          >
             {/* Breadcrumb */}
             <nav
               className="flex items-center gap-1.5 text-[13px] text-ink-400"
@@ -145,7 +145,7 @@ export default async function Page({
                     {statusLabel(apt.status, locale)}
                   </Badge>
                   {apt.has_ai_tour && (
-                    <Badge tone="gold">
+                    <Badge tone="mist">
                       <Sparkles className="h-3 w-3" /> AI Tour
                     </Badge>
                   )}
@@ -258,7 +258,7 @@ export default async function Page({
                   <h2 className="font-serif text-2xl font-bold text-ink">
                     {t.aiTour}
                   </h2>
-                  <div className="mt-5 flex aspect-video items-center justify-center rounded-xl2 bg-forest text-center">
+                  <div className="mt-5 flex aspect-video items-center justify-center rounded-xl2 bg-ink text-center">
                     <div className="max-w-xs px-6">
                       <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold-500 text-ivory-50">
                         <Sparkles className="h-6 w-6" />

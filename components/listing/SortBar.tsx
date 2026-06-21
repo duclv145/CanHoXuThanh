@@ -55,7 +55,7 @@ export function SortBar({
           <select
             value={current}
             onChange={(e) => setSort(e.target.value)}
-            className="cursor-pointer rounded-lg border border-ivory-300 bg-white px-3 py-2 text-[13px] text-ink focus:border-gold-400 focus:outline-none"
+            className="cursor-pointer rounded-lg border border-ivory-300 bg-ivory-50 px-3 py-2 text-[13px] text-ink focus:border-gold-400 focus:outline-none"
           >
             {SORT_OPTIONS.map(({ value, label }) => (
               <option key={value} value={value}>

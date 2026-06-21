@@ -30,7 +30,7 @@ export function Hero({
         {/* Mobile: ảnh hero lên trên đầu */}
         <div className="order-1 px-6 pt-4 sm:px-10 lg:hidden">
           <div
-            className="relative overflow-hidden rounded-3xl"
+            className="relative overflow-hidden rounded-[28px]"
             style={{ aspectRatio: "4/3" }}
           >
             <Image

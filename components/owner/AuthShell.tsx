@@ -20,16 +20,16 @@ export function AuthShell({
 
   return (
     <main className="pt-[72px]">
-      <div className="container-x py-10 lg:py-16">
+      <div className="container-x pt-6 pb-10 lg:pt-10 lg:pb-16">
         <div className="grid overflow-hidden rounded-[28px] border border-ivory-200 bg-ivory-50 shadow-float lg:grid-cols-2">
           {/* Brand panel — nền đen thuần */}
-          <div className="relative hidden flex-col justify-center overflow-hidden bg-ink p-10 text-white lg:flex">
-            <div className="relative">
+          <div className="relative hidden flex-col justify-between overflow-hidden bg-ink px-10 pb-10 pt-12 text-white lg:flex">
+            <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide backdrop-blur">
                 <Sparkles className="h-3.5 w-3.5" />
                 {t.panelEyebrow}
               </span>
-              <h2 className="mt-5 font-serif text-[32px] font-extrabold leading-[1.12]">
+              <h2 className="mt-6 font-serif text-[32px] font-extrabold leading-[1.12]">
                 {t.panelTitle}
               </h2>
               <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-white/80">
@@ -49,7 +49,7 @@ export function AuthShell({
 
             <Link
               href={localePath(locale, "/")}
-              className="absolute bottom-10 left-10 inline-flex items-center gap-2 text-[13px] text-white/75 transition-colors hover:text-white"
+              className="inline-flex items-center gap-2 text-[13px] text-white/75 transition-colors hover:text-white"
             >
               <ArrowLeft className="h-4 w-4" />
               {t.backHome}
@@ -57,7 +57,7 @@ export function AuthShell({
           </div>
 
           {/* Form area */}
-          <div className="bg-ivory-50 p-8 sm:p-12 lg:p-14">
+          <div className="bg-ivory-50 px-8 py-10 sm:px-12 lg:px-14 lg:py-12">
             <div className="mx-auto max-w-sm">
               {/* logo nhỏ cho mobile (panel ẩn) */}
               <Logo className="mb-8 h-9 lg:hidden" />

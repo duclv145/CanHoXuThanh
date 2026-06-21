@@ -13,7 +13,7 @@ export function OwnerCta({ dict, locale }: { dict: Dictionary; locale: Locale })
   return (
     <section id="chu-nha" className="py-20 lg:py-28">
       <div className="container-x">
-        <div className="relative overflow-hidden rounded-[28px] bg-forest text-ivory-100">
+        <div className="relative overflow-hidden rounded-[28px] bg-ink text-ivory-100">
           {/* ảnh nền mờ bên phải */}
           <div className="absolute inset-y-0 right-0 hidden w-1/2 lg:block">
             <Image
