@@ -75,8 +75,8 @@ function Slide({
       )}
 
       {/* Thẻ thông tin — phải (desktop) / dưới (mobile) */}
-      <div className="absolute bottom-5 left-1/2 z-10 w-[calc(100%-2.5rem)] max-w-[440px] -translate-x-1/2 rounded-xl2 bg-ivory-50/95 p-6 shadow-float backdrop-blur lg:bottom-auto lg:left-auto lg:right-9 lg:top-1/2 lg:-translate-x-0 lg:-translate-y-1/2 lg:p-7">
-        <div className="mb-3 flex items-center gap-2">
+      <div className="absolute bottom-5 left-1/2 z-10 w-[calc(100%-2.5rem)] max-w-[440px] -translate-x-1/2 rounded-xl2 bg-ivory-50/95 p-4 shadow-float backdrop-blur lg:bottom-auto lg:left-auto lg:right-9 lg:top-1/2 lg:-translate-x-0 lg:-translate-y-1/2 lg:p-7">
+        <div className="mb-2 flex items-center gap-2 lg:mb-3">
           {accent ? (
             <span
               className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-white"
@@ -92,26 +92,18 @@ function Slide({
           </Badge>
         </div>
 
-        {/* Giá */}
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-[40px] font-bold leading-none tracking-tight text-ink lg:text-[48px]">
-            {formatVnd(apt.price)}
-          </span>
-          <span className="text-[14px] text-ink-400">{dict.card.perMonth}</span>
-        </div>
-
         {/* Tên */}
-        <h3 className="mt-3 font-serif text-[22px] font-bold leading-snug text-ink">
+        <h3 className="font-serif text-[18px] font-bold leading-snug text-ink lg:text-[22px]">
           {apt.name}
         </h3>
 
-        <p className="mt-2 flex items-center gap-1.5 text-[13px] text-ink-500">
+        <p className="mt-1.5 flex items-center gap-1.5 text-[13px] text-ink-500 lg:mt-2">
           <MapPin className="h-3.5 w-3.5 shrink-0 text-gold-500" />
           <span className="line-clamp-1">{apt.address}</span>
         </p>
 
         {/* Thông số */}
-        <div className="mt-5 flex items-center gap-5 border-y border-ivory-200 py-4 text-[14px] text-ink-700">
+        <div className="mt-3 flex items-center gap-5 border-y border-ivory-200 py-2.5 text-[14px] text-ink-700 lg:mt-5 lg:py-4">
           <span className="flex items-center gap-2">
             <Maximize className="h-4 w-4 text-ink-400" strokeWidth={1.5} />
             {apt.area} m²
@@ -128,13 +120,21 @@ function Slide({
           </span>
         </div>
 
-        {/* CTA */}
-        <Link
-          href={localePath(locale, `/can-ho/${apt.slug}`)}
-          className="mt-5 block w-full rounded-full bg-ink py-3.5 text-center text-[15px] font-semibold text-white transition-colors hover:bg-gold-600 active:scale-[0.98]"
-        >
-          {dict.card.detail}
-        </Link>
+        {/* Giá + CTA */}
+        <div className="mt-3.5 flex items-center justify-between gap-3 lg:mt-5">
+          <div className="flex items-baseline gap-1">
+            <span className="text-[24px] font-bold leading-none tracking-tight text-ink lg:text-[30px]">
+              {formatVnd(apt.price)}
+            </span>
+            <span className="text-[12px] text-ink-400 lg:text-[13px]">{dict.card.perMonth}</span>
+          </div>
+          <Link
+            href={localePath(locale, `/can-ho/${apt.slug}`)}
+            className="shrink-0 rounded-full bg-ink px-6 py-2.5 text-center text-[14px] font-semibold text-white transition-colors hover:bg-gold-600 active:scale-[0.98] lg:px-7 lg:py-3 lg:text-[15px]"
+          >
+            {dict.card.detail}
+          </Link>
+        </div>
       </div>
     </div>
   );
